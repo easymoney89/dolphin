@@ -16,6 +16,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
+include(ECMGenerateDBusServiceFile)
 include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 include(FeatureSummary)
@@ -155,10 +156,15 @@ install(FILES
     COMPONENT Devel
 )
 
-configure_file(org.kde.dolphin.FileManager1.service.in
-               ${CMAKE_CURRENT_BINARY_DIR}/org.kde.dolphin.FileManager1.service)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.kde.dolphin.FileManager1.service
-        DESTINATION ${KDE_INSTALL_DBUSSERVICEDIR})
+ecm_generate_dbus_service_file(
+   NAME org.freedesktop.FileManager1
+   EXECUTABLE "${KDE_INSTALL_FULL_BINDIR}/dolphin --daemon"
+   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.FileManager1.service
+        DESTINATION ${KDE_INSTALL_DBUSSERVICEDIR}
+        RENAME org.kde.dolphin.FileManager1.service)
 install(FILES dolphin.categories  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
