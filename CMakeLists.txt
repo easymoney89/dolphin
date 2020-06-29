@@ -164,7 +164,7 @@ ecm_generate_dbus_service_file(
    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-ecm_install_configured_files(TEMPLATES app-org.kde.dolphin.service.in DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
+ecm_install_configured_files(INPUT app-org.kde.dolphin.service.in DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.FileManager1.service
         DESTINATION ${KDE_INSTALL_DBUSSERVICEDIR}
